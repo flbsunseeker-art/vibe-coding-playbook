@@ -2,9 +2,9 @@
 
 > 一套用于指导个人与 Codex Agent 共创 AI 项目的开发工作流。
 
-核心原则：**人负责方向、判断、边界和验收；AI / Codex 负责执行、补全和提效。**
+核心原则：**人负责方向、判断、边界和最终验收；AI / Codex 负责执行、验证、补全和提效。**
 
-Vibe Coding 不是把一句想法丢给 AI 写代码，而是通过清晰的 SOP，把项目从「产品想法」推进到「可展示的 MVP」。
+目标不是让 AI “多写代码”，而是让整个过程更快、更稳、更容易回滚和复盘。
 
 ---
 
@@ -12,25 +12,29 @@ Vibe Coding 不是把一句想法丢给 AI 写代码，而是通过清晰的 SOP
 
 ```mermaid
 flowchart TD
-    A[产品定位] --> B[PRD 草稿]
-    B --> C[UI 原型]
-    C --> D[架构与边界]
-    D --> E[AGENTS.md]
-    E --> F[TODO 拆解]
-    F --> G[小步开发]
-    G --> H[测试 Review Commit]
-    H --> I[部署 Demo]
-    I --> J[复盘沉淀]
+    A[项目初始化 Git + AGENTS.md] --> B[产品定位与 PRD]
+    B --> C[UI 原型与 DESIGN]
+    C --> D[ARCHITECTURE + TODO]
+    D --> E[小步实现]
+    E --> F[AI 自测与修复]
+    F --> G[Review + Local Commit]
+    G --> H[人工验收]
+    H --> I[Release Verification]
+    I --> J[确认后 Push / 部署]
+    J --> K[复盘沉淀]
 ```
 
 ---
 
-## 适合谁使用
+## 核心原则
 
-- 想用 AI 快速做 MVP 的产品经理
-- 想用 Codex / Claude Code 辅助开发的 Builder
-- 想把想法快速做成可 Demo 项目的人
-- 想把 AI Coding 从「随机对话」变成「稳定流程」的人
+- **先想清楚，再开发**：先明确用户、问题、MVP 和技术可行性。
+- **实现与验证是一件事**：AI 交付前先完成与风险匹配的自测。
+- **Git 是 checkpoint**：每个独立且已验证的任务完成后创建本地 Commit。
+- **本地自主，远端确认**：Local Commit 可自动完成，Push Remote 必须先确认。
+- **按风险测试**：不强制每次新增测试，也不强制使用 Computer Use 等特定工具。
+- **QA Agent 按需使用**：复杂或高风险任务可引入独立 QA Sub Agent，不作为默认步骤。
+- **人做最终验收**：AI 负责证明“能正常工作”，人负责判断“是不是我们真正想要的产品”。
 
 ---
 
@@ -45,46 +49,46 @@ flowchart TD
 
 ---
 
-## 最小使用方式
-
-每次启动一个新 Vibe Coding 项目时，可以直接复制以下模板到新项目：
+## 新项目推荐结构
 
 ```txt
-新项目/
+project/
 ├── docs/
 │   ├── PRD.md
 │   ├── DESIGN.md
 │   ├── ARCHITECTURE.md
 │   └── TODO.md
 ├── AGENTS.md
+├── .gitignore
 └── README.md
 ```
 
-推荐顺序：
+---
+
+## 推荐执行顺序
 
 ```txt
+0. 初始化 Git、.gitignore 和基础 AGENTS.md
 1. 和 AI 脑暴产品方向
-2. 明确产品定位、目标用户、痛点和 MVP 边界
-3. 做技术可行性初判，不展开详细技术方案
-4. 输出 docs/PRD.md
-5. 收集 UI 参考，生成 UI 原型
-6. 输出 docs/DESIGN.md
-7. 生成 docs/ARCHITECTURE.md
-8. 创建 AGENTS.md，固化 Agent 开发规则
-9. 生成 docs/TODO.md
-10. 按 TODO 小步开发
-11. 每完成一项就测试、review、commit
-12. 新需求先判断大小，大需求先更新 PRD / ARCHITECTURE
-13. 主流程跑通后做 UI polish
-14. 部署到 Vercel / Netlify / Cloudflare
-15. 补 README 和 Demo Script
-16. 复盘并更新文档
+2. 明确定位、用户、痛点、MVP 和技术可行性
+3. 输出 PRD.md
+4. 形成 UI 原型和 DESIGN.md
+5. 输出 ARCHITECTURE.md
+6. 补全 AGENTS.md
+7. 生成 TODO.md
+8. 按 TODO 小步开发
+9. 每个 Task：实现 → 必要测试 → AI 自测 → 修复 → Review → Local Commit
+10. Computer Use / QA Sub Agent 等按实际复杂度使用
+11. 人工验收
+12. 发布前完成 Release Verification
+13. Push Remote 前由用户确认
+14. 补 README / Demo，并复盘沉淀
 ```
 
 ---
 
 ## 一句话总结
 
-> 最好的 Vibe Coding，不是让 AI 替你思考，而是你先把产品方向、MVP 边界和验收标准想清楚，再让 Codex 在清晰文档和开发规则下高速执行。
+> 最好的 Vibe Coding，不是让 AI 替你思考，而是让人负责方向与最终判断，让 AI 在清晰边界下自主完成「实现 → 验证 → 修复 → 留痕」。
 >
-> 真正体现 Builder 能力的，不是代码量，而是你能否定义问题、控制范围、快速交付，并把项目讲成一个完整的产品故事。
+> Git 让 AI Coding **可回退**，AI Self-Test 让它 **更可信**。
